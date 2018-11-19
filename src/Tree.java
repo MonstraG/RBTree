@@ -1,3 +1,5 @@
+package com.company;
+
 public class Tree {
     private static Node treeRoot = null;
 
@@ -22,17 +24,17 @@ public class Tree {
     }
 
     static int addNode(char value) throws Exception {
-        if(find(value) > 0) {
-            throw new Exception("Такой нод уже добавлен");
-        }
-
         Node newNode = new Node();
         newNode.value = value;
         int compareCount = 0;
 
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
-        } else { // дерево не пустое
+        } else {
+            if(find(value) > 0) {
+                throw new Exception("Такой нод уже добавлен");
+            }
+
             Node compareTo = treeRoot;
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
