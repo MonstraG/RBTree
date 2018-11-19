@@ -1,6 +1,6 @@
-public class Node {
-    char value;
-    boolean isRed;
-    Node leftNode;
-    Node rightNode;
+class Node {
+    char value = 0;
+    boolean isRed = false;
+    Node leftNode = null;
+    Node rightNode = null;
 }
