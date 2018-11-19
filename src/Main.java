@@ -9,7 +9,7 @@ public class Program {
     private String[] action;
 
     public Program() {
-        scan = new Scanner(in);
+        scan = new Scanner(System.in);
         action = new String[]{
                 "добавить элемент",
                 "добавить алфавит (A-Z)",
