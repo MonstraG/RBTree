@@ -1,3 +1,5 @@
+package com.company;
+
 class Node {
     char value = 0;
     boolean isRed = false;
