@@ -2,6 +2,7 @@ public class Tree {
     private Node treeRoot = null;
 
     int find(char value){
+
         return 0;
     }
 
@@ -21,28 +22,25 @@ public class Tree {
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
                 compareCount++;
-
-                if (compareTo.value == 0) {
+                if (compareTo.value == 0) { // если уже нашли куда вставлять
                     if (compareRes == -1) {
                         compareTo.leftNode = newNode;
+                        break;
                     }
                     if (compareRes == 1) {
                         compareTo.rightNode = newNode;
+                        break;
                     }
                 }
-
                 if (compareRes == -1) {
                     compareTo = compareTo.leftNode;
                 }
                 if (compareRes == 1) {
                     compareTo = compareTo.rightNode;
                 }
-
             }
         }
-
         rebalance();
-
         return compareCount;
     }
 
