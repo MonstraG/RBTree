@@ -1,3 +1,8 @@
+package com.company;
+
+import java.util.Scanner;
+import static java.lang.System.out;
+
 public class Program {
     private final Scanner scan;
     private String[] action;
@@ -24,6 +29,7 @@ public class Program {
                     } catch (Exception e) {
                         System.out.print(e.toString());
                     }
+                    out.println("Элемент добавлен");
                     break;
                 case 1:
                     Tree.addAlphabet();
@@ -45,9 +51,7 @@ public class Program {
                     exit = true;
                     break;
             }
-            scan.next();
         }
-
     }
 
     private void showChoises() {
