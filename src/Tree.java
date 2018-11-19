@@ -11,6 +11,7 @@ public class Tree {
         }
 
         Node newNode = new Node();
+        newNode.value = value;
         int compareCount = 0;
 
         if (treeRoot == null) { // дерево пустое
@@ -39,6 +40,8 @@ public class Tree {
 
             }
         }
+
+        rebalance();
 
         return compareCount;
     }
