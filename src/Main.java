@@ -52,7 +52,7 @@ public class Program {
                 case 6:
                     showAll();
                     break;
-                case 9:
+                case 7:
                     exit = true;
                     break;
             }
