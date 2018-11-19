@@ -30,7 +30,7 @@ public class Program {
                     addNode(scan.next());
                     break;
                 case 1:
-                    addAlphavite();
+                    addAlphabet();
                     out.println("Алфавит добавлен");
                     break;
                 case 2:
