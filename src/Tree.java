@@ -2,8 +2,23 @@ public class Tree {
     private Node treeRoot = null;
 
     int find(char value){
-
-        return 0;
+        Node compareTo = treeRoot;
+        int compareCount = 0;
+        int compareRes = 2;
+        while (compareRes != 0) {
+            if (compareTo.value == 0) {
+                return -compareCount;
+            }
+            compareRes = Character.compare(compareTo.value, value);
+            compareCount++;
+            if (compareRes == -1) {
+                compareTo = compareTo.leftNode;
+            }
+            if (compareRes == 1) {
+                compareTo = compareTo.rightNode;
+            }
+        }
+        return compareCount;
     }
 
     int addNode(char value) throws Exception {
