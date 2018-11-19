@@ -1,9 +1,3 @@
-package com.company;
-import java.io.PrintWriter;
-import java.util.Scanner;
-
-import static java.lang.System.out;
-
 public class Program {
     private final Scanner scan;
     private String[] action;
@@ -16,8 +10,6 @@ public class Program {
                 "удалить элемент",
                 "удалить все элементы",
                 "найти элемент",
-                "показать элемент (показывает поддерево с корнем в этом элементе)",
-                "показать все (показывает все дерево)",
                 "выйти"
         };
         Boolean exit = false;
@@ -27,32 +19,29 @@ public class Program {
             switch (choice) {
                 case 0:
                     out.println("Введите элемент");
-                    addNode(scan.next());
+                    try {
+                        Tree.addNode(scan.next().charAt(0));
+                    } catch (Exception e) {
+                        System.out.print(e.toString());
+                    }
                     break;
                 case 1:
-                    addAlphabet();
+                    Tree.addAlphabet();
                     out.println("Алфавит добавлен");
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");
-                    removeNode(scan.next());
+                    Tree.removeNode(scan.next().charAt(0));
                     break;
                 case 3:
-                    removeAll();
+                    Tree.removeAll();
                     out.println("Все элементы были удалены");
                     break;
                 case 4:
                     out.println("Введите элемент");
-                    find(scan.next());
+                    Tree.find(scan.next().charAt(0));
                     break;
                 case 5:
-                    out.println("Введите элемент");
-                    showElement(scan.next());
-                    break;
-                case 6:
-                    showAll();
-                    break;
-                case 7:
                     exit = true;
                     break;
             }
