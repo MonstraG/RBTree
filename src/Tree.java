@@ -1,7 +1,7 @@
 public class Tree {
-    private Node treeRoot = null;
+    private static Node treeRoot = null;
 
-    int find(char value){
+    static int find(char value){
         Node compareTo = treeRoot;
         int compareCount = 0;
         int compareRes = 2;
@@ -21,7 +21,7 @@ public class Tree {
         return compareCount;
     }
 
-    int addNode(char value) throws Exception {
+    static int addNode(char value) throws Exception {
         if(find(value) > 0) {
             throw new Exception("Такой нод уже добавлен");
         }
@@ -59,9 +59,13 @@ public class Tree {
         return compareCount;
     }
 
-    int removeNode(char value){
+    static int removeNode(char value){
         return 0;
     }
 
-    void rebalance(){}
+    static void rebalance(){}
+
+    static void addAlphabet() {}
+
+    static void removeAll(){}
 }
