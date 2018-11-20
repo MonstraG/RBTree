@@ -5,4 +5,5 @@ class Node {
     boolean isRed = false;
     Node leftNode = null;
     Node rightNode = null;
+    Node parent = null;
 }
