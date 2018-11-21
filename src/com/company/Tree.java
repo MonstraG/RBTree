@@ -18,6 +18,9 @@ public class Tree {
                 compareTo = compareTo.rightNode;
             }
         }
+        if (compareTo == treeRoot) {
+            return null;
+        }
         return compareTo;
     }
 
