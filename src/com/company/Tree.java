@@ -113,6 +113,7 @@ public class Tree {
                 }
             }
         }
+        treeRoot.isRed = false;
     }
 
     static void addAlphabet() throws Exception {
@@ -122,7 +123,8 @@ public class Tree {
         }
     }
 
-    static void removeAll(){}
+    static void removeAll(){
+    }
 
     private static void rotateLeft(Node x) {
         Node y = x.rightNode;
