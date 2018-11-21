@@ -115,7 +115,12 @@ public class Tree {
         }
     }
 
-    static void addAlphabet() {}
+    static void addAlphabet() throws Exception {
+        for(char i = 'a'; i <= 'z'; i++)
+        {
+            addNode(i);
+        }
+    }
 
     static void removeAll(){}
 
