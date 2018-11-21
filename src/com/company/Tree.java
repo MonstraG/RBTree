@@ -5,14 +5,12 @@ public class Tree {
 
     static int find(char value){
         Node compareTo = treeRoot;
-        int compareCount = 0;
         int compareRes = 2;
         while (compareRes != 0) {
             if (compareTo.value == 0) {
                 return -compareCount;
             }
             compareRes = Character.compare(compareTo.value, value);
-            compareCount++;
             if (compareRes == -1) {
                 compareTo = compareTo.leftNode;
             }
@@ -20,7 +18,7 @@ public class Tree {
                 compareTo = compareTo.rightNode;
             }
         }
-        return compareCount;
+        return compareTo;
     }
 
     static int addNode(char value) throws Exception {
