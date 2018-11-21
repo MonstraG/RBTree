@@ -78,18 +78,39 @@ public class Tree {
                     currentNode = currentNode.parent.parent;
                 }
                 else {
+                    /* 2 случай: элемент красный, в левом поддереве справа, родитель красный, дядя черный
+                        переходим к 3 случаю путем поворота поддерева, в котором находится элемент
+                     */
                     if (currentNode == currentNode.parent.rightNode) {
                         currentNode = currentNode.parent;
                         rotateLeft(currentNode);
                     }
-                    // 3 случай:
+                    // 3 случай: эелемент красный, в левом поддереве слева, родитель красный, дядя черный
                     currentNode.parent.isRed = false;
                     currentNode.parent.parent.isRed = true;
                     rotateRight(currentNode.parent.parent);
                 }
             } //текущий элемент в правом поддереве
             else {
-                //допишу завтра
+                Node uncle = currentNode.parent.parent.leftNode;
+                if (uncle.isRed) {
+                    //4 случай: элемент в правом поддереве, родитель и дядя - красные
+                    currentNode.parent.isRed = false;
+                    uncle.isRed = false;
+                    currentNode.parent.parent.isRed = true;
+                    currentNode = currentNode.parent.parent;
+                }
+                else {
+                    //5 случай: элемент в правом поддереве справа, родитель красный, дядя черный
+                    if (currentNode == currentNode.parent.rightNode) {
+                        currentNode = currentNode.parent;
+                        rotateLeft(currentNode);
+                    }
+                    //6 случай: элемент красный, в правом поддереве слева, родитель красный, дядя черный
+                    currentNode.parent.isRed = false;
+                    currentNode.parent.parent.isRed = true;
+                    rotateRight(currentNode.parent.parent);
+                }
             }
         }
     }
