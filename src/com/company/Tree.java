@@ -3,12 +3,12 @@ package com.company;
 public class Tree {
     private static Node treeRoot = null;
 
-    static int find(char value){
+    static Node find(char value){
         Node compareTo = treeRoot;
         int compareRes = 2;
         while (compareRes != 0) {
             if (compareTo.value == 0) {
-                return -compareCount;
+                return null;
             }
             compareRes = Character.compare(compareTo.value, value);
             if (compareRes == -1) {
@@ -32,7 +32,7 @@ public class Tree {
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
         } else {
-            if(find(value) > 0) {
+            if(find(value) != null) {
                 throw new Exception("Такой нод уже добавлен");
             }
 
@@ -62,8 +62,24 @@ public class Tree {
         return compareCount;
     }
 
-    static int removeNode(char value){
-        return 0;
+    static void removeNode(char value){
+        Node element = find(value);
+        if (element.rightNode == null && element.leftNode == null) {
+            if (element.parent.rightNode == element)
+                element.parent.rightNode = null;
+        }
+        if (element.leftNode!=null && element.rightNode == null) {
+            Node child = element.leftNode;
+            child.isRed = element.isRed;
+            element = child;
+            element.leftNode = null;
+        }
+        if (element.leftNode==null && element.rightNode != null) {
+            Node child = element.rightNode;
+            child.isRed = element.isRed;
+            element = child;
+            element.rightNode = null;
+        }
     }
 
     static void rebalance(Node currentNode){
@@ -125,6 +141,7 @@ public class Tree {
     }
 
     static void removeAll(){
+
     }
 
     private static void rotateLeft(Node x) {
