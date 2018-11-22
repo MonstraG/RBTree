@@ -12,9 +12,15 @@ public class Tree {
             }
             compareRes = Character.compare(compareTo.value, value);
             if (compareRes == -1) {
+                if (compareTo.leftNode == null) {
+                    return null;
+                }
                 compareTo = compareTo.leftNode;
             }
             if (compareRes == 1) {
+                if (compareTo.rightNode == null) {
+                    return null;
+                }
                 compareTo = compareTo.rightNode;
             }
         }
@@ -24,11 +30,9 @@ public class Tree {
         return compareTo;
     }
 
-    static int addNode(char value) throws Exception {
+    static void  addNode(char value) throws Exception {
         Node newNode = new Node();
         newNode.value = value;
-        int compareCount = 0;
-
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
         } else {
@@ -39,27 +43,25 @@ public class Tree {
             Node compareTo = treeRoot;
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
-                compareCount++;
-                if (compareTo.value == 0) { // если уже нашли куда вставлять
-                    if (compareRes == -1) {
+                if (compareRes == -1) {
+                    if (compareTo.leftNode == null) {
+                        newNode.parent = compareTo;
                         compareTo.leftNode = newNode;
                         break;
                     }
-                    if (compareRes == 1) {
-                        compareTo.rightNode = newNode;
-                        break;
-                    }
-                }
-                if (compareRes == -1) {
                     compareTo = compareTo.leftNode;
                 }
                 if (compareRes == 1) {
+                    if (compareTo.rightNode == null) {
+                        newNode.parent = compareTo;
+                        compareTo.rightNode = newNode;
+                        break;
+                    }
                     compareTo = compareTo.rightNode;
                 }
-            }
+            }// end while
+            rebalance(newNode);
         }
-        rebalance(newNode);
-        return compareCount;
     }
 
     static void removeNode(char value){

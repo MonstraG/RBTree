@@ -26,14 +26,20 @@ public class Program {
                     out.println("Введите элемент");
                     try {
                         Tree.addNode(scan.next().charAt(0));
+                        out.println("Элемент добавлен");
                     } catch (Exception e) {
-                        System.out.print(e.toString());
+                        out.print(e.toString());
+                        exit = true;
                     }
-                    out.println("Элемент добавлен");
                     break;
                 case 1:
-                    Tree.addAlphabet();
-                    out.println("Алфавит добавлен");
+                    try {
+                        Tree.addAlphabet();
+                        out.println("Алфавит добавлен");
+                    } catch (Exception e) {
+                        out.print(e.toString());
+                        exit = true;
+                    }
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");
@@ -45,7 +51,12 @@ public class Program {
                     break;
                 case 4:
                     out.println("Введите элемент");
-                    Tree.find(scan.next().charAt(0));
+                    Node res = Tree.find(scan.next().charAt(0));
+                    if (res == null) {
+                        out.print("Такого нет");
+                    } else {
+                        out.print("Такой есть");
+                    }
                     break;
                 case 5:
                     exit = true;
@@ -56,11 +67,10 @@ public class Program {
 
     private void showChoises() {
         out.println("Что вы хотите сделать?");
-        for (int i=0; i<action.length; i++)
-            out.println(" " + (i + 1) + ". "
-                    + action[i]);
+        for (int i = 0; i < action.length; i++)
+            out.println(" " + (i + 1) + ". " + action[i]);
     }
     public static void main(String[] args) {
-        Program instance = new Program();
+        Program instance = new  Program();
     }
 }
