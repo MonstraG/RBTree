@@ -53,9 +53,9 @@ public class Program {
                     out.println("Введите элемент");
                     Node res = Tree.find(scan.next().charAt(0));
                     if (res == null) {
-                        out.print("Такого нет");
+                        out.print("Такого нет \n");
                     } else {
-                        out.print("Такой есть");
+                        out.print("Такой есть \n");
                     }
                     break;
                 case 5:

@@ -11,13 +11,13 @@ public class Tree {
                 return null;
             }
             compareRes = Character.compare(compareTo.value, value);
-            if (compareRes == -1) {
+            if (compareRes < 0) {
                 if (compareTo.leftNode == null) {
                     return null;
                 }
                 compareTo = compareTo.leftNode;
             }
-            if (compareRes == 1) {
+            if (compareRes > 0) {
                 if (compareTo.rightNode == null) {
                     return null;
                 }
@@ -43,7 +43,7 @@ public class Tree {
             Node compareTo = treeRoot;
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
-                if (compareRes == -1) {
+                if (compareRes < 0) {
                     if (compareTo.leftNode == null) {
                         newNode.parent = compareTo;
                         compareTo.leftNode = newNode;
@@ -51,7 +51,7 @@ public class Tree {
                     }
                     compareTo = compareTo.leftNode;
                 }
-                if (compareRes == 1) {
+                if (compareRes > 0) {
                     if (compareTo.rightNode == null) {
                         newNode.parent = compareTo;
                         compareTo.rightNode = newNode;
