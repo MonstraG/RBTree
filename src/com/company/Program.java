@@ -15,6 +15,7 @@ public class Program {
                 "удалить элемент",
                 "удалить все элементы",
                 "найти элемент",
+                "выписать все элементы",
                 "выйти"
         };
         Boolean exit = false;
@@ -28,8 +29,7 @@ public class Program {
                         Tree.addNode(scan.next().charAt(0));
                         out.println("Элемент добавлен");
                     } catch (Exception e) {
-                        out.print(e.toString());
-                        exit = true;
+                        out.println(e.toString());
                     }
                     break;
                 case 1:
@@ -37,8 +37,7 @@ public class Program {
                         Tree.addAlphabet();
                         out.println("Алфавит добавлен");
                     } catch (Exception e) {
-                        out.print(e.toString());
-                        exit = true;
+                        out.println(e.toString());
                     }
                     break;
                 case 2:
@@ -53,12 +52,15 @@ public class Program {
                     out.println("Введите элемент");
                     Node res = Tree.find(scan.next().charAt(0));
                     if (res == null) {
-                        out.print("Такого нет \n");
+                        out.println("Такого нет");
                     } else {
-                        out.print("Такой есть \n");
+                        out.println("Такой есть");
                     }
                     break;
                 case 5:
+                    out.println(Tree.serialize());
+                    break;
+                case 6:
                     exit = true;
                     break;
             }

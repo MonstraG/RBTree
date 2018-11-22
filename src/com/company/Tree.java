@@ -1,7 +1,11 @@
 package com.company;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Tree {
     private static Node treeRoot = null;
+    private static ArrayList<Node> nodeIndex = new ArrayList<>();
 
     static Node find(char value){
         Node compareTo = treeRoot;
@@ -35,6 +39,7 @@ public class Tree {
         newNode.value = value;
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
+            nodeIndex.add(newNode);
         } else {
             if(find(value) != null) {
                 throw new Exception("Такой нод уже добавлен");
@@ -47,6 +52,7 @@ public class Tree {
                     if (compareTo.leftNode == null) {
                         newNode.parent = compareTo;
                         compareTo.leftNode = newNode;
+                        nodeIndex.add(newNode);
                         break;
                     }
                     compareTo = compareTo.leftNode;
@@ -55,6 +61,7 @@ public class Tree {
                     if (compareTo.rightNode == null) {
                         newNode.parent = compareTo;
                         compareTo.rightNode = newNode;
+                        nodeIndex.add(newNode);
                         break;
                     }
                     compareTo = compareTo.rightNode;
@@ -175,5 +182,17 @@ public class Tree {
         }
         y.rightNode = x;
         x.parent = y;
+    }
+
+    static String serialize() {
+        StringBuilder result = new StringBuilder();
+        for (Node node : nodeIndex) {
+            result.append(node.value).append(" ");
+
+        }
+        if (result.toString().equals("")) {
+            return "Элементов нет";
+        }
+        return result.toString();
     }
 }
