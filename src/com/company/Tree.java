@@ -1,6 +1,5 @@
 package com.company;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Tree {
@@ -8,28 +7,19 @@ public class Tree {
     private static ArrayList<Node> nodeIndex = new ArrayList<>();
 
     static Node find(char value){
+        if (value == treeRoot.value) return treeRoot;
         Node compareTo = treeRoot;
-        int compareRes = 2;
+        int compareRes = 1;
         while (compareRes != 0) {
-            if (compareTo.value == 0) {
-                return null;
-            }
             compareRes = Character.compare(compareTo.value, value);
             if (compareRes < 0) {
-                if (compareTo.leftNode == null) {
-                    return null;
-                }
+                if (compareTo.leftNode == null) return null;
                 compareTo = compareTo.leftNode;
             }
             if (compareRes > 0) {
-                if (compareTo.rightNode == null) {
-                    return null;
-                }
+                if (compareTo.rightNode == null) return null;
                 compareTo = compareTo.rightNode;
             }
-        }
-        if (compareTo == treeRoot) {
-            return null;
         }
         return compareTo;
     }
@@ -40,11 +30,8 @@ public class Tree {
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
             nodeIndex.add(newNode);
-        } else {
-            if(find(value) != null) {
-                throw new Exception("Такой нод уже добавлен");
-            }
-
+        } else { // дерево не пустое
+            if(find(value) != null) throw new Exception("Такой нод уже добавлен");
             Node compareTo = treeRoot;
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
@@ -73,38 +60,39 @@ public class Tree {
 
     static void removeNode(char value) {
         Node element = find(value);
-        if (element == null) {
-            return;
-        }
-
+        if (element == null) return;
         if (treeRoot.value == value) {
             // TODO;
             rebalance();
+            return;
         }
         if (element.rightNode != null && element.leftNode != null) {
             // TODO:
             rebalance();
+            return;
         }
-        if (element.rightNode == null && element.leftNode == null) {
-            if (element.parent.rightNode == element)
-                element.parent.rightNode = null;
-            if (element.parent.leftNode == element)
-                element.parent.leftNode = null;
-        }
-        if (element.leftNode != null && element.rightNode == null) {
+
+        if (element.leftNode != null) {
             Node child = element.leftNode;
             child.isRed = element.isRed;
             element = child;
             element.leftNode = null;
             rebalance(element);
+            return;
         }
-        if (element.leftNode == null && element.rightNode != null) {
+        if (element.rightNode != null) {
             Node child = element.rightNode;
             child.isRed = element.isRed;
             element = child;
             element.rightNode = null;
             rebalance(element);
+            return;
         }
+        // оба null
+        if (element.parent.rightNode == element)
+                element.parent.rightNode = null;
+        if (element.parent.leftNode == element)
+                element.parent.leftNode = null;
     }
 
     private static void rebalance(Node currentNode) {
@@ -200,13 +188,9 @@ public class Tree {
 
     static String serialize() {
         StringBuilder result = new StringBuilder();
-        for (Node node : nodeIndex) {
+        for (Node node : nodeIndex)
             result.append(node.value).append(" ");
-
-        }
-        if (result.toString().equals("")) {
-            return "Элементов нет";
-        }
+        if (result.toString().equals("")) return "Элементов нет";
         return result.toString();
     }
 }

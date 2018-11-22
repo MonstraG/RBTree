@@ -28,17 +28,13 @@ public class Program {
                     try {
                         Tree.addNode(scan.next().charAt(0));
                         out.println("Элемент добавлен");
-                    } catch (Exception e) {
-                        out.println(e.toString());
-                    }
+                    } catch (Exception e) { out.println(e.toString()); }
                     break;
                 case 1:
                     try {
                         Tree.addAlphabet();
                         out.println("Алфавит добавлен");
-                    } catch (Exception e) {
-                        out.println(e.toString());
-                    }
+                    } catch (Exception e) { out.println(e.toString()); }
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");
