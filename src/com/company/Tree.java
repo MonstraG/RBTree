@@ -71,27 +71,43 @@ public class Tree {
         }
     }
 
-    static void removeNode(char value){
+    static void removeNode(char value) {
         Node element = find(value);
+        if (element == null) {
+            return;
+        }
+
+        if (treeRoot.value == value) {
+            // TODO;
+            rebalance();
+        }
+        if (element.rightNode != null && element.leftNode != null) {
+            // TODO:
+            rebalance();
+        }
         if (element.rightNode == null && element.leftNode == null) {
             if (element.parent.rightNode == element)
                 element.parent.rightNode = null;
+            if (element.parent.leftNode == element)
+                element.parent.leftNode = null;
         }
-        if (element.leftNode!=null && element.rightNode == null) {
+        if (element.leftNode != null && element.rightNode == null) {
             Node child = element.leftNode;
             child.isRed = element.isRed;
             element = child;
             element.leftNode = null;
+            rebalance(element);
         }
-        if (element.leftNode==null && element.rightNode != null) {
+        if (element.leftNode == null && element.rightNode != null) {
             Node child = element.rightNode;
             child.isRed = element.isRed;
             element = child;
             element.rightNode = null;
+            rebalance(element);
         }
     }
 
-    static void rebalance(Node currentNode){
+    private static void rebalance(Node currentNode) {
         while (currentNode.parent.isRed) {
             //когда текущий элемент находится в левом поддереве
             if (currentNode.parent == currentNode.parent.parent.leftNode) {
@@ -105,8 +121,7 @@ public class Tree {
                 }
                 else {
                     /* 2 случай: элемент красный, в левом поддереве справа, родитель красный, дядя черный
-                        переходим к 3 случаю путем поворота поддерева, в котором находится элемент
-                     */
+                        переходим к 3 случаю путем поворота поддерева, в котором находится элемент */
                     if (currentNode == currentNode.parent.rightNode) {
                         currentNode = currentNode.parent;
                         rotateLeft(currentNode);
@@ -144,13 +159,12 @@ public class Tree {
 
     static void addAlphabet() throws Exception {
         for(char i = 'a'; i <= 'z'; i++)
-        {
             addNode(i);
-        }
     }
 
     static void removeAll(){
-
+        treeRoot = null;
+        nodeIndex = new ArrayList<>();
     }
 
     private static void rotateLeft(Node x) {
