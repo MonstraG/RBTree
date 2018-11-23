@@ -18,7 +18,7 @@ public class Program {
                 "выписать все элементы",
                 "выйти"
         };
-        Boolean exit = false;
+        boolean exit = false;
         while (!exit) {
             showChoises();
             int choice = scan.nextInt() - 1;

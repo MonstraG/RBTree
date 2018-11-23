@@ -60,19 +60,33 @@ public class Tree {
 
     static void removeNode(char value) {
         Node element = find(value);
-        if (element == null) return;
-        if (treeRoot.value == value) {
-            // TODO;
-            rebalance();
-            return;
-        }
-        if (element.rightNode != null && element.leftNode != null) {
-            // TODO:
-            rebalance();
+        if (element == null) return; // такого нет
+        if (element.rightNode != null && element.leftNode != null) { // есть оба сына
+            //находим наименьший справа
+            Node next = element.rightNode;
+            while(next.leftNode != null)
+                next = next.leftNode;
+
+            //переназначаем все
+            next.parent.leftNode = null;
+            next.parent = element.parent;
+            next.rightNode = element.rightNode;
+            next.leftNode = element.leftNode;
+            if (element != treeRoot) {
+                if (element.parent.leftNode == element)
+                    element.parent.leftNode = next;
+                if (element.parent.rightNode == element)
+                    element.parent.rightNode = next;
+            } else {
+                treeRoot = next;
+            }
+            rebalance(next);
             return;
         }
 
-        if (element.leftNode != null) {
+
+        // TODO: fix other removals below this line.
+        if (element.leftNode != null) { // левый деть есть, правого нет
             Node child = element.leftNode;
             child.isRed = element.isRed;
             element = child;
@@ -80,7 +94,7 @@ public class Tree {
             rebalance(element);
             return;
         }
-        if (element.rightNode != null) {
+        if (element.rightNode != null) { // правый есть, другого нет
             Node child = element.rightNode;
             child.isRed = element.isRed;
             element = child;
