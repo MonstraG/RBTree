@@ -99,7 +99,7 @@ public class Tree {
             child.isRed = element.isRed;
             element = child;
             element.rightNode = null;
-            rebalance(element);
+            rebalance(element); 
             return;
         }
         // оба null
