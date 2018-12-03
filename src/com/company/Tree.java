@@ -210,11 +210,11 @@ class Tree {
     }
 
     static String serialize() {
+        if (treeRoot == null) return "Элементов нет";
         StringBuilder result = new StringBuilder();
         walkTree(treeRoot);
         for (String item : temp)
             result.append(item).append(" \n");
-        if (result.toString().equals("")) return "Элементов нет";
         temp.clear();
         return result.toString();
     }
