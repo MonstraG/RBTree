@@ -50,7 +50,7 @@ public class Program {
                     if (res == null) {
                         out.println("Такого нет");
                     } else {
-                        out.println("Такой есть");
+                        out.println(res.toString());
                     }
                     break;
                 case 5:
@@ -58,6 +58,8 @@ public class Program {
                     break;
                 case 6:
                     exit = true;
+                    break;
+                default:
                     break;
             }
         }

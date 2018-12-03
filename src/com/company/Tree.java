@@ -81,6 +81,7 @@ class Tree {
         if (element.leftNode != null) { // левый деть есть, правого нет
             if (element == treeRoot) {
                 treeRoot = element.leftNode;
+                treeRoot.parent = null;
             }
             if (element.parent.leftNode == element) {
                 element.parent.leftNode = element.leftNode;
@@ -99,7 +100,13 @@ class Tree {
             element.rightNode.parent = element.parent;
             return;
         }
-        // оба null
+        // оба null и это корень
+        if (element == treeRoot) {
+            treeRoot = null;
+            return;
+        }
+
+        //оба null и это не корнеь
         if (element.parent.rightNode == element)
             element.parent.rightNode = null;
         if (element.parent.leftNode == element)
@@ -165,9 +172,7 @@ class Tree {
         for(char i = 'a'; i <= 'z'; i++) addNode(i);
     }
 
-    static void removeAll() {
-        treeRoot = null;
-    }
+    static void removeAll() { treeRoot = null; }
 
     private static void rotateLeft(Node x) {
         Node y = x.rightNode;
