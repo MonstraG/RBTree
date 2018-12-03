@@ -115,10 +115,8 @@ class Tree {
                     // 1 случай: элемент красный, родитель и дядя - красные
                     currentNode.parent.isRed = false;
                     uncle.isRed = false;
-                    if (currentNode.parent.parent != null) {
-                        currentNode.parent.parent.isRed = true;
-                        currentNode = currentNode.parent.parent;
-                    }
+                    currentNode.parent.parent.isRed = true;
+                    currentNode = currentNode.parent.parent;
                 }
                 else {
                     /* 2 случай: элемент красный, в левом поддереве справа, родитель красный, дядя черный
@@ -137,17 +135,16 @@ class Tree {
             } //текущий элемент в правом поддереве
             else {
                 Node uncle = currentNode.parent.parent.leftNode;
-                if (uncle.isRed) {
+                if (uncle != null && uncle.isRed) {
                     //4 случай: элемент в правом поддереве, родитель и дядя - красные
                     currentNode.parent.isRed = false;
                     uncle.isRed = false;
-                    if (currentNode.parent.parent != null) {
-                        currentNode.parent.parent.isRed = true;
-                        currentNode = currentNode.parent.parent;
-                    }
+                    currentNode.parent.parent.isRed = true;
+                    currentNode = currentNode.parent.parent;
                 }
                 else {
                     //5 случай: элемент в правом поддереве справа, родитель красный, дядя черный
+
                     if (currentNode == currentNode.parent.rightNode) {
                         currentNode = currentNode.parent;
                         rotateLeft(currentNode);
@@ -165,11 +162,10 @@ class Tree {
     }
 
     static void addAlphabet() throws Exception {
-        for(char i = 'a'; i <= 'z'; i++)
-            addNode(i);
+        for(char i = 'a'; i <= 'z'; i++) addNode(i);
     }
 
-    static void removeAll(){
+    static void removeAll() {
         treeRoot = null;
     }
 
@@ -189,6 +185,7 @@ class Tree {
         y.parent = x.parent;
         x.parent = y;
         x.rightNode = y.leftNode;
+        if (x.rightNode != null) x.rightNode.parent = x;
         y.leftNode = x;
 
     }
@@ -208,6 +205,7 @@ class Tree {
         y.parent = x.parent;
         x.parent = y;
         x.leftNode = y.rightNode;
+        if (x.leftNode != null) x.leftNode.parent = x;
         y.rightNode = x;
     }
 
