@@ -65,39 +65,37 @@ public class Tree {
             while(next.leftNode != null)
                 next = next.leftNode;
 
-            //переназначаем все
-            next.parent.leftNode = null;
-            next.parent = element.parent;
-            next.rightNode = element.rightNode;
-            next.leftNode = element.leftNode;
-            if (element != treeRoot) {
-                if (element.parent.leftNode == element)
-                    element.parent.leftNode = next;
-                if (element.parent.rightNode == element)
-                    element.parent.rightNode = next;
-            } else {
-                treeRoot = next;
+            element.value = next.value;
+
+            if (next == element.rightNode) {
+                element.rightNode = null;
             }
-            rebalance(next);
-            return;
-        }
-
-
-        // TODO: fix other removals below this line.
-        if (element.leftNode != null) { // левый деть есть, правого нет
-            Node child = element.leftNode;
-            child.isRed = element.isRed;
-            element = child;
-            element.leftNode = null;
+            else {
+                next.parent.leftNode = null;
+            }
+            next.parent = null;
             rebalance(element);
             return;
         }
+        if (element.leftNode != null) { // левый деть есть, правого нет
+            if (element == treeRoot) {
+                treeRoot = element.leftNode;
+            }
+            if (element.parent.leftNode == element) {
+                element.parent.leftNode = element.leftNode;
+            }
+            element.leftNode.parent = element.parent;
+            return;
+        }
         if (element.rightNode != null) { // правый есть, другого нет
-            Node child = element.rightNode;
-            child.isRed = element.isRed;
-            element = child;
-            element.rightNode = null;
-            rebalance(element); 
+            if (element == treeRoot) {
+                treeRoot = element.rightNode;
+                treeRoot.parent = null;
+            }
+            if (element.parent.rightNode == element) {
+                element.parent.rightNode = element.rightNode;
+            }
+            element.rightNode.parent = element.parent;
             return;
         }
         // оба null
@@ -179,6 +177,14 @@ public class Tree {
         if (treeRoot == x) {
             treeRoot = y;
         }
+        if (x.parent != null) {
+            if (x.parent.leftNode == x) {
+                x.parent.leftNode = y;
+            }
+            if (y.parent.rightNode == y) {
+                x.parent.rightNode = y;
+            }
+        }
         y.parent = x.parent;
         x.parent = y;
         x.rightNode = y.leftNode;
@@ -190,7 +196,16 @@ public class Tree {
         if (treeRoot == x) {
             treeRoot = y;
         }
+        if (x.parent != null) {
+            if (x.parent.leftNode == x) {
+                x.parent.leftNode = y;
+            }
+            if (y.parent.rightNode == y) {
+                x.parent.rightNode = y;
+            }
+        }
         y.parent = x.parent;
+
         x.parent = y;
         x.leftNode = y.rightNode;
         y.rightNode = x;
@@ -208,7 +223,11 @@ public class Tree {
 
     private static void walkTree(Node start) {
         StringBuilder nodeInfo = new StringBuilder();
-        nodeInfo.append(start.value).append(" with children: ");
+        nodeInfo.append(start.value);
+        if (start.isRed) {
+            nodeInfo.append(" is red, ");
+        }
+        nodeInfo.append(" with children: ");
         if (start.leftNode != null) {
             nodeInfo.append(" left: ").append(start.leftNode.value);
             walkTree(start.leftNode);
