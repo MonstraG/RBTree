@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 public class Tree {
     private static Node treeRoot = null;
-    private static ArrayList<Node> nodeIndex = new ArrayList<>();
 
     static Node find(char value){
         if (value == treeRoot.value) return treeRoot;
@@ -30,7 +29,7 @@ public class Tree {
         newNode.value = value;
         if (treeRoot == null) { // дерево пустое
             treeRoot = newNode;
-            nodeIndex.add(newNode);
+            treeRoot.isRed = false;
         } else { // дерево не пустое
             if(find(value) != null) throw new Exception("Такой нод уже добавлен");
             Node compareTo = treeRoot;
@@ -40,7 +39,6 @@ public class Tree {
                     if (compareTo.leftNode == null) {
                         newNode.parent = compareTo;
                         compareTo.leftNode = newNode;
-                        nodeIndex.add(newNode);
                         break;
                     }
                     compareTo = compareTo.leftNode;
@@ -49,7 +47,6 @@ public class Tree {
                     if (compareTo.rightNode == null) {
                         newNode.parent = compareTo;
                         compareTo.rightNode = newNode;
-                        nodeIndex.add(newNode);
                         break;
                     }
                     compareTo = compareTo.rightNode;
@@ -167,7 +164,6 @@ public class Tree {
 
     static void removeAll(){
         treeRoot = null;
-        nodeIndex = new ArrayList<>();
     }
 
     private static void rotateLeft(Node x) {
@@ -203,14 +199,7 @@ public class Tree {
 
     static String serialize() {
         StringBuilder result = new StringBuilder();
-        for (Node node : nodeIndex){
-            result.append(node.value);
-                    if (node.leftNode != null)
-                        result.append(" ").append(node.leftNode.value);
-                    if (node.rightNode != null)
-                        result.append(" ").append(node.rightNode.value);
-                    result.append("\n");
-        }
+        // TODO: recursive/while implementation.
         if (result.toString().equals("")) return "Элементов нет";
         return result.toString();
     }
