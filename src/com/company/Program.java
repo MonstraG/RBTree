@@ -34,7 +34,7 @@ public class Program {
                     try {
                         Tree.addAlphabet();
                         out.println("Алфавит добавлен");
-                    } catch (Exception e) { out.println(e.toString()); }
+                    } catch (Exception e) { e.printStackTrace(); }
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");

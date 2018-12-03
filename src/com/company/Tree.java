@@ -1,10 +1,10 @@
-
 package com.company;
 
 import java.util.ArrayList;
 
 public class Tree {
     private static Node treeRoot = null;
+    private static ArrayList<String> temp = new ArrayList<>();
 
     static Node find(char value){
         if (value == treeRoot.value) return treeRoot;
@@ -24,12 +24,12 @@ public class Tree {
         return compareTo;
     }
 
-    static void  addNode(char value) throws Exception {
+    static void addNode(char value) throws Exception {
         Node newNode = new Node();
         newNode.value = value;
         if (treeRoot == null) { // дерево пустое
+            newNode.isRed = false;
             treeRoot = newNode;
-            treeRoot.isRed = false;
         } else { // дерево не пустое
             if(find(value) != null) throw new Exception("Такой нод уже добавлен");
             Node compareTo = treeRoot;
@@ -108,16 +108,18 @@ public class Tree {
     }
 
     private static void rebalance(Node currentNode) {
-        while (currentNode.parent.isRed) {
+        while (currentNode.parent != null && currentNode.parent.isRed) {
             //когда текущий элемент находится в левом поддереве
             if (currentNode.parent == currentNode.parent.parent.leftNode) {
                 Node uncle = currentNode.parent.parent.rightNode;
-                if (uncle.isRed) {
+                if (uncle != null && uncle.isRed) {
                     // 1 случай: элемент красный, родитель и дядя - красные
                     currentNode.parent.isRed = false;
                     uncle.isRed = false;
-                    currentNode.parent.parent.isRed = true;
-                    currentNode = currentNode.parent.parent;
+                    if (currentNode.parent.parent != null) {
+                        currentNode.parent.parent.isRed = true;
+                        currentNode = currentNode.parent.parent;
+                    }
                 }
                 else {
                     /* 2 случай: элемент красный, в левом поддереве справа, родитель красный, дядя черный
@@ -128,8 +130,10 @@ public class Tree {
                     }
                     // 3 случай: эелемент красный, в левом поддереве слева, родитель красный, дядя черный
                     currentNode.parent.isRed = false;
-                    currentNode.parent.parent.isRed = true;
-                    rotateRight(currentNode.parent.parent);
+                    if (currentNode.parent.parent != null) {
+                        currentNode.parent.parent.isRed = true;
+                        rotateRight(currentNode.parent.parent);
+                    }
                 }
             } //текущий элемент в правом поддереве
             else {
@@ -138,8 +142,10 @@ public class Tree {
                     //4 случай: элемент в правом поддереве, родитель и дядя - красные
                     currentNode.parent.isRed = false;
                     uncle.isRed = false;
-                    currentNode.parent.parent.isRed = true;
-                    currentNode = currentNode.parent.parent;
+                    if (currentNode.parent.parent != null) {
+                        currentNode.parent.parent.isRed = true;
+                        currentNode = currentNode.parent.parent;
+                    }
                 }
                 else {
                     //5 случай: элемент в правом поддереве справа, родитель красный, дядя черный
@@ -149,8 +155,10 @@ public class Tree {
                     }
                     //6 случай: элемент красный, в правом поддереве слева, родитель красный, дядя черный
                     currentNode.parent.isRed = false;
-                    currentNode.parent.parent.isRed = true;
-                    rotateRight(currentNode.parent.parent);
+                    if (currentNode.parent.parent != null) {
+                        currentNode.parent.parent.isRed = true;
+                        rotateRight(currentNode.parent.parent);
+                    }
                 }
             }
         }
@@ -168,40 +176,47 @@ public class Tree {
 
     private static void rotateLeft(Node x) {
         Node y = x.rightNode;
-        x.rightNode = y.leftNode;
-        if (y.leftNode != null)
-            y.leftNode.parent = x;
+        if (treeRoot == x) {
+            treeRoot = y;
+        }
         y.parent = x.parent;
-        if (x == x.parent.leftNode) {
-            x.parent.leftNode = y;
-        }
-        else {
-            x.parent.rightNode = y;
-        }
-        y.leftNode = x;
         x.parent = y;
+        x.rightNode = y.leftNode;
+        y.leftNode = x;
+
     }
     private static void rotateRight(Node x){
         Node y = x.leftNode;
-        x.leftNode = y.rightNode;
-        if (y.rightNode != null)
-            y.rightNode.parent = x;
+        if (treeRoot == x) {
+            treeRoot = y;
+        }
         y.parent = x.parent;
-        if (x == x.parent.leftNode) {
-            x.parent.leftNode = y;
-        }
-        else {
-            x.parent.rightNode = y;
-        }
-        y.rightNode = x;
         x.parent = y;
+        x.leftNode = y.rightNode;
+        y.rightNode = x;
     }
 
     static String serialize() {
         StringBuilder result = new StringBuilder();
-        // TODO: recursive/while implementation.
+        walkTree(treeRoot);
+        for (String item : temp)
+            result.append(item).append(" \n");
         if (result.toString().equals("")) return "Элементов нет";
+        temp.clear();
         return result.toString();
     }
 
+    private static void walkTree(Node start) {
+        StringBuilder nodeInfo = new StringBuilder();
+        nodeInfo.append(start.value).append(" with children: ");
+        if (start.leftNode != null) {
+            nodeInfo.append(" left: ").append(start.leftNode.value);
+            walkTree(start.leftNode);
+        }
+        if (start.rightNode != null) {
+            nodeInfo.append(" right: ").append(start.rightNode.value);
+            walkTree(start.rightNode);
+        }
+        temp.add(nodeInfo.toString());
+    }
 }
