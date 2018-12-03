@@ -1,3 +1,4 @@
+
 package com.company;
 
 import java.util.ArrayList;
@@ -104,9 +105,9 @@ public class Tree {
         }
         // оба null
         if (element.parent.rightNode == element)
-                element.parent.rightNode = null;
+            element.parent.rightNode = null;
         if (element.parent.leftNode == element)
-                element.parent.leftNode = null;
+            element.parent.leftNode = null;
     }
 
     private static void rebalance(Node currentNode) {
@@ -202,9 +203,16 @@ public class Tree {
 
     static String serialize() {
         StringBuilder result = new StringBuilder();
-        for (Node node : nodeIndex)
-            result.append(node.value).append(" ");
+        for (Node node : nodeIndex){
+            result.append(node.value);
+                    if (node.leftNode != null)
+                        result.append(" ").append(node.leftNode.value);
+                    if (node.rightNode != null)
+                        result.append(" ").append(node.rightNode.value);
+                    result.append("\n");
+        }
         if (result.toString().equals("")) return "Элементов нет";
         return result.toString();
     }
+
 }
