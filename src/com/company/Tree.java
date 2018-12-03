@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
-public class Tree {
+class Tree {
     private static Node treeRoot = null;
     private static ArrayList<String> temp = new ArrayList<>();
 
@@ -24,14 +24,15 @@ public class Tree {
         return compareTo;
     }
 
-    static Node addNode(char value) throws Exception {
+    static void addNode(char value) throws Exception {
         Node newNode = new Node();
         newNode.value = value;
         if (treeRoot == null) { // дерево пустое
             newNode.isRed = false;
             treeRoot = newNode;
         } else { // дерево не пустое
-            if(find(value) != null) throw new Exception("Такой нод уже добавлен");
+            if (find(value) != null) throw new Exception("Такой нод уже добавлен");
+
             Node compareTo = treeRoot;
             while (true) {
                 int compareRes = Character.compare(compareTo.value, value);
@@ -54,7 +55,6 @@ public class Tree {
             }// end while
             rebalance(newNode);
         }
-        return newNode;
     }
 
     static void removeNode(char value) {

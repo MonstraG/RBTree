@@ -26,6 +26,7 @@ public class Program {
                 case 0:
                     out.println("Введите элемент");
                     try {
+                        Tree.addNode(scan.next().charAt(0));
                         out.println("Элемент добавлен");
                     } catch (Exception e) { out.println(e.toString()); }
                     break;
@@ -33,7 +34,7 @@ public class Program {
                     try {
                         Tree.addAlphabet();
                         out.println("Алфавит добавлен");
-                    } catch (Exception e) { out.println(e.toString()); }
+                    } catch (Exception e) { e.printStackTrace(); }
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");
