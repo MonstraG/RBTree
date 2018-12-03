@@ -26,14 +26,14 @@ public class Program {
                 case 0:
                     out.println("Введите элемент");
                     try {
-                        out.println("Добавлен: " + Tree.addNode(scan.next().charAt(0)).serialize());
+                        out.println("Элемент добавлен");
                     } catch (Exception e) { out.println(e.toString()); }
                     break;
                 case 1:
                     try {
                         Tree.addAlphabet();
                         out.println("Алфавит добавлен");
-                    } catch (Exception e) { e.printStackTrace(); }
+                    } catch (Exception e) { out.println(e.toString()); }
                     break;
                 case 2:
                     out.println("Введите элемент, который нужно удалить");

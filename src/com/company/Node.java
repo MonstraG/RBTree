@@ -3,23 +3,23 @@ package com.company;
 class Node {
     char value = 0;
     boolean isRed = true;
+    Node parent = null;
     Node leftNode = null;
     Node rightNode = null;
-    Node parent = null;
 
-    String serialize() {
+    public String toString() {
         StringBuilder nodeInfo = new StringBuilder();
-        nodeInfo.append(this.value);
-        if (this.isRed) {
-            nodeInfo.append(" is red, ");
+        nodeInfo.append("Node { value: ").append(this.value).append(", isRed: ").append(this.isRed);
+        if (this.parent != null) {
+            nodeInfo.append(", parent: ").append(this.parent.value);
         }
-        nodeInfo.append(" with children: ");
         if (this.leftNode != null) {
-            nodeInfo.append(" left: ").append(this.leftNode.value);
+            nodeInfo.append(", leftNode: ").append(this.leftNode.value);
         }
         if (this.rightNode != null) {
-            nodeInfo.append(" right: ").append(this.rightNode.value);
+            nodeInfo.append(", rightNode: ").append(this.rightNode.value);
         }
+        nodeInfo.append(" }");
         return(nodeInfo.toString());
     }
 }

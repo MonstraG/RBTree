@@ -228,6 +228,6 @@ public class Tree {
         if (start.rightNode != null) {
             walkTree(start.rightNode);
         }
-        temp.add(start.serialize());
+        temp.add(start.toString());
     }
 }
