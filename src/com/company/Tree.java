@@ -24,7 +24,7 @@ public class Tree {
         return compareTo;
     }
 
-    static void addNode(char value) throws Exception {
+    static Node addNode(char value) throws Exception {
         Node newNode = new Node();
         newNode.value = value;
         if (treeRoot == null) { // дерево пустое
@@ -54,6 +54,7 @@ public class Tree {
             }// end while
             rebalance(newNode);
         }
+        return newNode;
     }
 
     static void removeNode(char value) {
@@ -62,10 +63,9 @@ public class Tree {
         if (element.rightNode != null && element.leftNode != null) { // есть оба сына
             //находим наименьший справа
             Node next = element.rightNode;
-            while(next.leftNode != null)
+            while(next.leftNode != null) {
                 next = next.leftNode;
-
-            element.value = next.value;
+            }
 
             if (next == element.rightNode) {
                 element.rightNode = null;
@@ -74,6 +74,7 @@ public class Tree {
                 next.parent.leftNode = null;
             }
             next.parent = null;
+            element.value = next.value;
             rebalance(element);
             return;
         }
@@ -205,7 +206,6 @@ public class Tree {
             }
         }
         y.parent = x.parent;
-
         x.parent = y;
         x.leftNode = y.rightNode;
         y.rightNode = x;
@@ -222,20 +222,12 @@ public class Tree {
     }
 
     private static void walkTree(Node start) {
-        StringBuilder nodeInfo = new StringBuilder();
-        nodeInfo.append(start.value);
-        if (start.isRed) {
-            nodeInfo.append(" is red, ");
-        }
-        nodeInfo.append(" with children: ");
         if (start.leftNode != null) {
-            nodeInfo.append(" left: ").append(start.leftNode.value);
             walkTree(start.leftNode);
         }
         if (start.rightNode != null) {
-            nodeInfo.append(" right: ").append(start.rightNode.value);
             walkTree(start.rightNode);
         }
-        temp.add(nodeInfo.toString());
+        temp.add(start.serialize());
     }
 }

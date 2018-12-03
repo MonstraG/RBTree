@@ -26,8 +26,7 @@ public class Program {
                 case 0:
                     out.println("Введите элемент");
                     try {
-                        Tree.addNode(scan.next().charAt(0));
-                        out.println("Элемент добавлен");
+                        out.println("Добавлен: " + Tree.addNode(scan.next().charAt(0)).serialize());
                     } catch (Exception e) { out.println(e.toString()); }
                     break;
                 case 1:
