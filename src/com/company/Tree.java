@@ -183,7 +183,7 @@ class Tree {
             if (x.parent.leftNode == x) {
                 x.parent.leftNode = y;
             }
-            if (y.parent.rightNode == y) {
+            if (x.parent.rightNode == x) {
                 x.parent.rightNode = y;
             }
         }
@@ -203,7 +203,7 @@ class Tree {
             if (x.parent.leftNode == x) {
                 x.parent.leftNode = y;
             }
-            if (y.parent.rightNode == y) {
+            if (x.parent.rightNode == x) {
                 x.parent.rightNode = y;
             }
         }
