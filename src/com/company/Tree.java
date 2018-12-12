@@ -2,10 +2,18 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Класс дерева, реализующий все методы работы с деревом.
+ */
 class Tree {
     private static Node treeRoot = null;
     private static ArrayList<String> temp = new ArrayList<>();
 
+    /**
+     * Находит обьект Node по значению
+     * @param value {char} - значение
+     * @return {Node} - найденный нод
+     */
     static Node find(char value){
         if (value == treeRoot.value) return treeRoot;
         Node compareTo = treeRoot;
@@ -24,6 +32,11 @@ class Tree {
         return compareTo;
     }
 
+    /**
+     * Добавляет новый нод
+     * @param value {char} - значение нового нода
+     * @throws Exception - поднимает Exception если такой нод уже есть
+     */
     static void addNode(char value) throws Exception {
         Node newNode = new Node();
         newNode.value = value;
@@ -57,6 +70,10 @@ class Tree {
         }
     }
 
+    /**
+     * Удаляет нод по значению
+     * @param value {char} - значение
+     */
     static void removeNode(char value) {
         Node element = find(value);
         if (element == null) return; // такого нет
@@ -113,6 +130,10 @@ class Tree {
             element.parent.leftNode = null;
     }
 
+    /**
+     * Основной метод перебалансировки дерева для этого нода
+     * @param currentNode {Node} - нод, из которого запускать перебалансировку
+     */
     private static void rebalance(Node currentNode) {
         while (currentNode.parent != null && currentNode.parent.isRed) {
             //когда текущий элемент находится в левом поддереве
@@ -168,12 +189,23 @@ class Tree {
         treeRoot.isRed = false;
     }
 
+    /**
+     * Добавляет сразу весь алфавит a-z.
+     * @throws Exception - поднимает Exception если какой-то элемент алфавита уже добавлен
+     */
     static void addAlphabet() throws Exception {
         for(char i = 'a'; i <= 'z'; i++) addNode(i);
     }
 
+    /**
+     * Отчищает дерево
+     */
     static void removeAll() { treeRoot = null; }
 
+    /**
+     * Вспомогательный метод перебалансировки, производящий левый поворот из данного нода
+     * @param x {Node} - нод из которого производить поворот
+     */
     private static void rotateLeft(Node x) {
         Node y = x.rightNode;
         if (treeRoot == x) {
@@ -194,6 +226,11 @@ class Tree {
         y.leftNode = x;
 
     }
+
+    /**
+     * Вспомогательный метод перебалансировки, производящий правый поворот из данного нода
+     * @param x {Node} - нод из которого производить поворот
+     */
     private static void rotateRight(Node x){
         Node y = x.leftNode;
         if (treeRoot == x) {
@@ -214,6 +251,10 @@ class Tree {
         y.rightNode = x;
     }
 
+    /**
+     * Сериализует все дерево.
+     * @return {String} - дерево в виде строки
+     */
     static String serialize() {
         if (treeRoot == null) return "Элементов нет";
         StringBuilder result = new StringBuilder();
@@ -224,6 +265,10 @@ class Tree {
         return result.toString();
     }
 
+    /**
+     * Рекурсивный вспомогательный метод, спускающийся из нода до листьев дерева, неоходимый для сериализации
+     * @param start {Node} - нод из которого начать спуск.
+     */
     private static void walkTree(Node start) {
         if (start.leftNode != null) {
             walkTree(start.leftNode);

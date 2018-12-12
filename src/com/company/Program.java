@@ -3,12 +3,20 @@ package com.company;
 import java.util.Scanner;
 import static java.lang.System.out;
 
+
+/**
+ * Основной класс программы
+ */
 public class Program {
-    private final Scanner scan;
     private String[] action;
 
-    public Program() {
-        scan = new Scanner(System.in);
+    /**
+     * \brief UI программы
+     *
+     * Предоставляет выбор действий с Красно-Черным деревом на основе выбора из списка.
+     */
+    private Program() {
+        Scanner scan = new Scanner(System.in);
         action = new String[]{
                 "добавить элемент",
                 "добавить алфавит (A-Z)",
@@ -65,11 +73,20 @@ public class Program {
         }
     }
 
+
+    /**
+     * Выводит варианты действий
+     */
     private void showChoises() {
         out.println("Что вы хотите сделать?");
         for (int i = 0; i < action.length; i++)
             out.println(" " + (i + 1) + ". " + action[i]);
     }
+
+    /**
+     * Запуск потока, основной метод программы.
+     * @param args - стандартные аргументы программы
+     */
     public static void main(String[] args) {
         Program instance = new  Program();
     }
