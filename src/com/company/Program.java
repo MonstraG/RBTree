@@ -8,7 +8,19 @@ import static java.lang.System.out;
  * Основной класс программы
  */
 public class Program {
-    private String[] action;
+
+    /**
+     * Список доступных действий, показываемый пользователю.
+     */
+    private String[] action = new String[]{
+            "добавить элемент",
+            "добавить алфавит (A-Z)",
+            "удалить элемент",
+            "удалить все элементы",
+            "найти элемент",
+            "выписать все элементы",
+            "выйти"
+    };
 
     /**
      * \brief UI программы
@@ -17,18 +29,9 @@ public class Program {
      */
     private Program() {
         Scanner scan = new Scanner(System.in);
-        action = new String[]{
-                "добавить элемент",
-                "добавить алфавит (A-Z)",
-                "удалить элемент",
-                "удалить все элементы",
-                "найти элемент",
-                "выписать все элементы",
-                "выйти"
-        };
         boolean exit = false;
         while (!exit) {
-            showChoises();
+            showChoices();
             int choice = scan.nextInt() - 1;
             switch (choice) {
                 case 0:
@@ -77,7 +80,7 @@ public class Program {
     /**
      * Выводит варианты действий
      */
-    private void showChoises() {
+    private void showChoices() {
         out.println("Что вы хотите сделать?");
         for (int i = 0; i < action.length; i++)
             out.println(" " + (i + 1) + ". " + action[i]);
