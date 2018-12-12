@@ -88,6 +88,6 @@ public class Program {
      * @param args - стандартные аргументы программы
      */
     public static void main(String[] args) {
-        Program instance = new  Program();
+        new Program();
     }
 }
